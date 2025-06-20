@@ -4,6 +4,7 @@ import {
   pickFields,
 } from './reduce';
 
+// remove the x from xdescribe to activate this test
 xdescribe('complexUrlAnalyzer', () => {
   it('analyzes complex urls', () => {
     expect(complexUrlAnalyzer('http://www.pippo.com/customers/delete/123123?qwe=123&ert=false&qwe=456'))
