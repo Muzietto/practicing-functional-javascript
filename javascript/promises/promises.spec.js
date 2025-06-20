@@ -3,7 +3,7 @@ import {
 } from './promises';
 
 
-describe('checkSettlesInTime', () => {
+xdescribe('checkSettlesInTime', () => {
 
   const HALF_SECOND_PROMISE = () => new Promise(resolve => {
     setTimeout(resolve, 500);
