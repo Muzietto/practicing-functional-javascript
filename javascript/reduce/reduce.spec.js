@@ -1,7 +1,23 @@
 import {
+  complexUrlAnalyzer,
   arrayToObject,
   pickFields,
 } from './reduce';
+
+xdescribe('complexUrlAnalyzer', () => {
+  it('analyzes complex urls', () => {
+    expect(complexUrlAnalyzer('http://www.pippo.com/customers/delete/123123?qwe=123&ert=false&qwe=456'))
+    .toEqual({
+      protocol: 'https',
+      node: 'www.pippo.com',
+      resource: '/customers/delete/123123',
+      params: {
+        ert: false,
+        qwe: [123, 456],
+      }
+    });  
+  });
+});
 
 describe('pickFields', () => {
   const data = {

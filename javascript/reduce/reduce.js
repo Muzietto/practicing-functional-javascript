@@ -1,7 +1,12 @@
-export { 
+export {
+  complexUrlAnalyzer,
   arrayToObject,
   pickFields,
 };
+
+function complexUrlAnalyzer() {
+  // TODO - implement me !!!
+}
 
 // https://www.100jsfunctions.com/exercises/arrayToObject
 function arrayToObject(strings) {
