@@ -16,17 +16,17 @@ The function should return the name of the employee with the highest salary in t
 */
 
 function getHighestPaidEmployee(employees, departmentId) {
-			            return employees.filter( 
-                                  (element) => (
-                                                (element.salary === Math.max(
-                                                    ...employees.filter(
-                                                        (e) => (e.departmentId == departmentId)
-                                                        )
-                                                         .map((e) => e.salary)
-                                                        )
-                                                 )
-                                              ) 
-                                   ).reduce( (acc, item) => (item.name), {})
+  return employees.filter(
+    (element) => (
+      (element.salary === Math.max(
+        ...employees.filter(
+          (e) => (e.departmentId == departmentId)
+        )
+          .map((e) => e.salary)
+      )
+      )
+    )
+  ).reduce((acc, item) => (item.name), {})
 }
 
 
@@ -38,20 +38,20 @@ https://www.100jsfunctions.com/exercises/flipObject
 */
 
 function flipObject(people) {
-    return Object.entries(people).reduce((acc, curr) => {
-        const [key, value] = curr;
+  return Object.entries(people).reduce((acc, curr) => {
+    const [key, value] = curr;
 
-        acc = acc[value] ?  
-         { 
-           ...acc,
-           [value]: [...Object.values(acc[value]), key] 
-         } :
-         {
-          ...acc,
-          [value] : [key]
-         } 
-        return acc;
-    }, {})
+    acc = acc[value]
+      ? {
+        ...acc,
+        [value]: [...Object.values(acc[value]), key],
+      }
+      : {
+        ...acc,
+        [value]: [key],
+      }
+    return acc;
+  }, {})
 }
 
 /*
@@ -65,16 +65,20 @@ that are not in the second one, and all numbers from the second array that are n
 
 
 function diffArrays(numbers1, numbers2) {
-    return ( numbers1.reduce( (acc, current) => {
-          acc = !numbers2.includes(current) ? [ ...acc, current] : [...acc];
-          return acc;
-         }, [])
-    
-         .concat( numbers2.reduce( (acc, current) => {
-          acc = !numbers1.includes(current) ? [ ...acc, current] : [...acc];
-          return acc;
-         }, []))
-     )
+  return (numbers1.reduce((acc, current) => {
+    acc = !numbers2.includes(current)
+      ? [...acc, current]
+      : [...acc];
+    return acc;
+  }, [])
+
+    .concat(numbers2.reduce((acc, current) => {
+      acc = !numbers1.includes(current)
+        ? [...acc, current]
+        : [...acc];
+      return acc;
+    }, []))
+  )
 }
 
 
@@ -99,20 +103,19 @@ The function should return the number of page views from that country between th
 
 */
 
-
 function countPageViews(pageViews, country, interval) {
   return pageViews.filter(
-          (e) => {
-            var startDate = new Date(interval.startDate);
-            var endDate = new Date(interval.endDate);
-            var currDate = new Date(e.date);
+    (e) => {
+      var startDate = new Date(interval.startDate);
+      var endDate = new Date(interval.endDate);
+      var currDate = new Date(e.date);
 
-            return currDate >= startDate && currDate <= endDate;
-          }
-         ).reduce( (acc, current) => {
-            acc = current.country == country ? acc + current.count : acc;
-            return acc;
-         }, 0)
+      return currDate >= startDate && currDate <= endDate;
+    }
+  ).reduce((acc, current) => {
+    acc = current.country == country ? acc + current.count : acc;
+    return acc;
+  }, 0)
 }
 
 
@@ -144,26 +147,26 @@ The function should return a new Map, where the values are the contacts missing 
 */
 
 function getMissingContacts(contactsMap) {
-    var keys = [];
+  var keys = [];
 
-    for (const key of contactsMap.keys()) {
-      keys.push(key);
-    }
+  for (const key of contactsMap.keys()) {
+    keys.push(key);
+  }
 
-    const newMap = new Map();
-    var newContacts = [];
-    var values = [];
-    let key;
+  const newMap = new Map();
+  var newContacts = [];
+  var values = [];
+  let key;
 
-    for ([key, values] of contactsMap ) {
-            newContacts = keys.reduce( (acc, current) => {
-              acc = (current == key) ? [...acc] : (!values.includes(current) ? [ ...acc, current] : [...acc]);
-              return acc;
-              }, [])
-              newMap.set(key, newContacts);
-    }
+  for ([key, values] of contactsMap) {
+    newContacts = keys.reduce((acc, current) => {
+      acc = (current == key) ? [...acc] : (!values.includes(current) ? [...acc, current] : [...acc]);
+      return acc;
+    }, [])
+    newMap.set(key, newContacts);
+  }
 
-    return newMap;
+  return newMap;
 }
 
 /*
@@ -179,31 +182,31 @@ and returns a new string created by removing from source the first and last appe
 */
 
 function removeFirstAndLast(source, target) {
-    console.log('source: ' + source);
-    console.log('target: ' + target);
+  console.log('source: ' + source);
+  console.log('target: ' + target);
 
-    var filter = new RegExp(`${target}(.+)`);
-    var [firstSub, restFirst] =  source.split(filter);
+  var filter = new RegExp(`${target}(.+)`);
+  var [firstSub, restFirst] = source.split(filter);
 
-    console.log('firstSub: ' + firstSub);
-    console.log('restFirst: ' + restFirst);
+  console.log('firstSub: ' + firstSub);
+  console.log('restFirst: ' + restFirst);
 
-    //if(restFirst === undefined) return source;
-    if(restFirst == undefined) {
-      filter = new RegExp(`${target}`);
-      [firstSub, restFirst] =  source.split(filter);
+  //if(restFirst === undefined) return source;
+  if (restFirst == undefined) {
+    filter = new RegExp(`${target}`);
+    [firstSub, restFirst] = source.split(filter);
 
-      return firstSub;
-    }
+    return firstSub;
+  }
 
-    filter = new RegExp(`${target}(?!.*${target})`)
-    var [middleSub, lastSub] = restFirst.split(filter);
+  filter = new RegExp(`${target}(?!.*${target})`)
+  var [middleSub, lastSub] = restFirst.split(filter);
 
-    console.log('middleSub: ' + middleSub);
-    console.log('lastSub: ' + lastSub);
+  console.log('middleSub: ' + middleSub);
+  console.log('lastSub: ' + lastSub);
 
-    console.log('result: ' + firstSub + middleSub + lastSub);
-    return firstSub + middleSub + lastSub;
+  console.log('result: ' + firstSub + middleSub + lastSub);
+  return firstSub + middleSub + lastSub;
 }
 
 
@@ -219,15 +222,15 @@ If no positive power of 2 is less than or equal to the number, the function shou
 
 function biggestPowerOf2(number) {
 
-    let tmp=1;
-    let count = 0;
+  let tmp = 1;
+  let count = 0;
 
-    while(tmp <= number) {
-        tmp *= 2;
-        count++;
-    }
+  while (tmp <= number) {
+    tmp *= 2;
+    count++;
+  }
 
-    return --count; 
+  return --count;
 }
 
 /*
@@ -240,9 +243,9 @@ The function should return a boolean verifying if the array contains only unique
 */
 
 function areValuesUnique(numbers) {
-    const newSet = new Set(numbers);
+  const newSet = new Set(numbers);
 
-    return numbers.length === newSet.size;
+  return numbers.length === newSet.size;
 }
 
 /*
@@ -260,14 +263,14 @@ NOTE: a rotation towards the right means that all elements of the array are move
 */
 
 function rotateArray(items, n) {
-    if(items.length == 0) return items;
+  if (items.length == 0) return items;
 
-    while(n--) {
-      let p = items.pop();
-      items.unshift(p);
-    }
+  while (n--) {
+    let p = items.pop();
+    items.unshift(p);
+  }
 
-    return items;
+  return items;
 }
 
 /*
@@ -279,10 +282,10 @@ Write a function named getDaysInMonth that receives a Date as a parameter,
 */
 
 function getDaysInMonth(date) {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
 
-    return new Date(year, month, 0).getDate();
+  return new Date(year, month, 0).getDate();
 }
 
 
@@ -302,11 +305,11 @@ Hint: use the Intl.DateTimeFormat API
 
 function formatDateTime(date, locale) {
   let options = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
     hour12: false,
   };
 
@@ -325,7 +328,7 @@ There's a built-in API that easily allows this conversation. So don't hesitate t
 */
 
 function toDecimal(base2Number) {
-    return parseInt(base2Number, 2);
+  return parseInt(base2Number, 2);
 }
 
 /*
@@ -346,12 +349,12 @@ union - a Set with all elements inside setA and setB
 function compareSets(setA, setB) {
   var obj = {}
 
-  Object.assign(obj, { onlyA: setA.difference(setB)});
-  Object.assign(obj, { onlyB: setB.difference(setA)});
-  Object.assign(obj, { union: setA.union(setB)});
+  Object.assign(obj, { onlyA: setA.difference(setB) });
+  Object.assign(obj, { onlyB: setB.difference(setA) });
+  Object.assign(obj, { union: setA.union(setB) });
 
   return obj;
-   
+
 }
 
 /*
@@ -367,40 +370,40 @@ a groupBy string with one of the following values - month, day, year
 The function should group the users according to their birthdays
  and the groupBy parameter, and return a Map where the values are Arrays of users, and the keys are:
 
-index of the month if groupBy="month" (starting from 1)
-index of the day in a month if groupBy="day" (starting from 1)
-year if the grouping string is groupBy="year"
+index of the month if groupBy='month' (starting from 1)
+index of the day in a month if groupBy='day' (starting from 1)
+year if the grouping string is groupBy='year'
 */
 
 
 function groupBirthdays(users, groupBy) {
-    var map = new Map();
+  var map = new Map();
 
-    users.map( (element) => {
-        const [record] = Object.entries(element).filter( item => item.includes('birthday'));
-        const [key1, value] = record;
+  users.map((element) => {
+    const [record] = Object.entries(element).filter(item => item.includes('birthday'));
+    const [key1, value] = record;
 
-        let date = new Date(value);
-        let year = date.getFullYear();
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
+    let date = new Date(value);
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
 
-        let key = '';
+    let key = '';
 
-        if(groupBy == 'year')
-          key = year;
-        else if(groupBy == 'month')
-          key = month;
-        else
-          key = day;
+    if (groupBy == 'year')
+      key = year;
+    else if (groupBy == 'month')
+      key = month;
+    else
+      key = day;
 
-        if(!map.has(key)) map.set(key, [element]) 
-          else {
-                (map.get(key)).push(element);
-          }
-    }) 
+    if (!map.has(key)) map.set(key, [element])
+    else {
+      (map.get(key)).push(element);
+    }
+  })
 
-    return map;
+  return map;
 }
 
 /*
@@ -425,59 +428,59 @@ The order of the items in the returned Array is not important.
 
 */
 function diffReactions(yesterdayReactions, todayReactions) {
-    console.log(todayReactions);
-    console.log(yesterdayReactions);
+  console.log(todayReactions);
+  console.log(yesterdayReactions);
 
-    var reactions = [];
+  var reactions = [];
 
-    if(Object.keys(todayReactions).length === 0) {
-      Object.keys(yesterdayReactions).map( (user) => {
-            var yesterday = new Set(yesterdayReactions[user]);
-            yesterday.forEach( (value) => 
-                reactions.push(user + ' removed their ' + value)
-            )
-      })
-
-      return reactions;
-    }
-
-    Object.keys(todayReactions).map ( (user) => {
-            var today = new Set(todayReactions[user]);
-            var yesterday = new Set(yesterdayReactions[user]);
-
-            if(today.isDisjointFrom(yesterday)) { 
-                    today.forEach( (value) => 
-                      reactions.push(user + ' reacted with ' + value)
-                    )
-
-                    yesterday.forEach( (value) =>
-                      reactions.push(user + ' removed their ' + value)
-                  )
-            }
-            else if(today.difference(yesterday).size > 0) {
-                   today.difference(yesterday).forEach( (value) => 
-                      reactions.push(user + ' reacted with ' + value)
-                    ) 
-             
-                  var removed = (today.symmetricDifference(yesterday)).difference(today);
-                  removed.forEach( value => {
-                    reactions.push(user + ' removed their ' + value)
-                  }) 
-            }        
-         }
-    )
-
-    if((new Set(Object.keys(todayReactions))).isDisjointFrom(new Set(Object.keys(yesterdayReactions)))) { 
-          Object.keys(yesterdayReactions).map ( (user) => {
-            var yesterday = new Set(yesterdayReactions[user]);
-
-            yesterday.forEach( (value) =>
-                reactions.push(user + ' removed their ' + value)
-            )
-          })
-    }
+  if (Object.keys(todayReactions).length === 0) {
+    Object.keys(yesterdayReactions).map((user) => {
+      var yesterday = new Set(yesterdayReactions[user]);
+      yesterday.forEach((value) =>
+        reactions.push(user + ' removed their ' + value)
+      )
+    })
 
     return reactions;
+  }
+
+  Object.keys(todayReactions).map((user) => {
+    var today = new Set(todayReactions[user]);
+    var yesterday = new Set(yesterdayReactions[user]);
+
+    if (today.isDisjointFrom(yesterday)) {
+      today.forEach((value) =>
+        reactions.push(user + ' reacted with ' + value)
+      )
+
+      yesterday.forEach((value) =>
+        reactions.push(user + ' removed their ' + value)
+      )
+    }
+    else if (today.difference(yesterday).size > 0) {
+      today.difference(yesterday).forEach((value) =>
+        reactions.push(user + ' reacted with ' + value)
+      )
+
+      var removed = (today.symmetricDifference(yesterday)).difference(today);
+      removed.forEach(value => {
+        reactions.push(user + ' removed their ' + value)
+      })
+    }
+  }
+  )
+
+  if ((new Set(Object.keys(todayReactions))).isDisjointFrom(new Set(Object.keys(yesterdayReactions)))) {
+    Object.keys(yesterdayReactions).map((user) => {
+      var yesterday = new Set(yesterdayReactions[user]);
+
+      yesterday.forEach((value) =>
+        reactions.push(user + ' removed their ' + value)
+      )
+    })
+  }
+
+  return reactions;
 }
 
 /*
@@ -492,14 +495,14 @@ The function should return the color in hexadecimal form.
 */
 
 function rgbToHex(rgbColor) {
-    const [str1, str2] = rgbColor.split('(');
-    var [r, g, b] = str2.split(',');
+  const [str1, str2] = rgbColor.split('(');
+  var [r, g, b] = str2.split(',');
 
-    r = r.trim();
-    g = g.trim();
-    b = b.split(')')[0].trim();
+  r = r.trim();
+  g = g.trim();
+  b = b.split(')')[0].trim();
 
-    return '#' + Number(r).toString(16).padStart(2, '0') + Number(g).toString(16).padStart(2, '0') + Number(b).toString(16).padStart(2, '0'); 
+  return '#' + Number(r).toString(16).padStart(2, '0') + Number(g).toString(16).padStart(2, '0') + Number(b).toString(16).padStart(2, '0');
 }
 
 /*
@@ -510,83 +513,84 @@ Write a function named timeAgo that receives 2 Dates as parameters.
 
 The function should return a string that describes the amount of time that has passed between those 2 dates, following this format:
 
-if less than a minute has passed, return "just now"
-if less than an hour has passed, return "x minutes ago"
-if less than a day has passed, return "x hours ago"
-if less than a month has passed, return "x days ago" (we can consider a month having 30 days)
-if less than a year has passed, return "x months ago"
-else, return "more than a year ago"
+if less than a minute has passed, return 'just now'
+if less than an hour has passed, return 'x minutes ago'
+if less than a day has passed, return 'x hours ago'
+if less than a month has passed, return 'x days ago' (we can consider a month having 30 days)
+if less than a year has passed, return 'x months ago'
+else, return 'more than a year ago'
 */
 
 function timeAgo(date1, date2) {
-    const dateFirst = new Date(date1);
-    const dateLast = new Date(date2);
+  const dateFirst = new Date(date1);
+  const dateLast = new Date(date2);
 
-    const SECONDS = 1000;
-    const MINUTES = SECONDS * 60;
-    const HOURS = MINUTES * 60;
-    const DAYS = HOURS * 24;
-    const MONTHS = DAYS * 30;
+  const SECONDS = 1000;
+  const MINUTES = SECONDS * 60;
+  const HOURS = MINUTES * 60;
+  const DAYS = HOURS * 24;
+  const MONTHS = DAYS * 30;
 
-    const isFractional = (number) => {
-        return (number < 1) && (number % 1 != 0);
-    }
+  const isFractional = (number) => {
+    return (number < 1) && (number % 1 != 0);
+  }
 
-    var dateDiff;
+  var dateDiff;
 
-    if(dateLast > dateFirst) {
-       dateDiff = (dateLast - dateFirst);
-    } else dateDiff = (dateFirst - dateLast);
+  if (dateLast > dateFirst) {
+    dateDiff = (dateLast - dateFirst);
+  } else dateDiff = (dateFirst - dateLast);
 
-    var check = dateDiff / SECONDS;
+  var check = dateDiff / SECONDS;
 
-    if(check < 60) {
-       var result;
-       var res = Math.floor(check);
+  if (check < 60) {
+    var result;
+    var res = Math.floor(check);
 
-       return "just now";
-    }
+    return 'just now';
+  }
 
-    check = dateDiff / MINUTES;
+  check = dateDiff / MINUTES;
 
-    if(check < 60) {
-       var result;
-       var res = Math.floor(check);
-       (res == 1) ?  result = res + " minute ago" : result = res + " minutes ago";
+  if (check < 60) {
+    var result;
+    var res = Math.floor(check);
+    (res == 1) ? result = res + ' minute ago' : result = res + ' minutes ago';
 
-       return result;
-    }
+    return result;
+  }
 
-    check = dateDiff / HOURS;
+  check = dateDiff / HOURS;
 
-    if(check < 24) { 
-       var result;
-       var res = Math.floor(check);
-       (res == 1) ?  result = res + " hour ago" : result = res + " hours ago";
+  if (check < 24) {
+    var result;
+    var res = Math.floor(check);
+    (res == 1) ? result = res + ' hour ago' : result = res + ' hours ago';
 
-       return result;    
-    }
+    return result;
+  }
 
-    check = dateDiff / DAYS;
+  check = dateDiff / DAYS;
 
-    if(check < 30) { 
-       var result;
-       var res = Math.floor(check);
-       (res == 1) ?  result = res + " day ago" : result = res + " days ago";
+  if (check < 30) {
+    var result;
+    var res = Math.floor(check);
+    (res == 1) ? result = res + ' day ago' : result = res + ' days ago';
 
-       return result;
-    }
+    return result;
+  }
 
-    check = dateDiff / MONTHS;
+  check = dateDiff / MONTHS;
 
-    if(check < 12) { 
-       var result;
-       var res = Math.floor(check);
-       (res == 1) ?  result = res + " month ago" : result = res + " months ago";
+  if (check < 12) {
+    var result;
+    var res = Math.floor(check);
+    (res == 1) ? result = res + ' month ago' : result = res + ' months ago';
 
-       return result;    }
+    return result;
+  }
 
-    return "more than a year ago";
+  return 'more than a year ago';
 }
 
 /*
@@ -612,24 +616,24 @@ Inside every interval, the users are sorted descending by age.
 */
 
 function customArraySort(users, currentUserId) {
-    var result = [];
-    var filtered = users.filter( u => u.id == currentUserId);
-    var usrs = (new Set(users).difference( new Set(filtered)));
-    usrs = Array.from(usrs);
+  var result = [];
+  var filtered = users.filter(u => u.id == currentUserId);
+  var usrs = (new Set(users).difference(new Set(filtered)));
+  usrs = Array.from(usrs);
 
-    result.push(...filtered);
+  result.push(...filtered);
 
-    filtered = usrs.filter( u => u.age >= 35 && u.age < 50).sort( (a, b) =>  b.age - a.age);
-    result.push(...filtered);
+  filtered = usrs.filter(u => u.age >= 35 && u.age < 50).sort((a, b) => b.age - a.age);
+  result.push(...filtered);
 
-    filtered = usrs.filter( u => u.age < 18).sort( (a, b) =>  b.age - a.age);
-    result.push(...filtered);
+  filtered = usrs.filter(u => u.age < 18).sort((a, b) => b.age - a.age);
+  result.push(...filtered);
 
-    filtered = usrs.filter( u => u.age >= 50).sort( (a, b) =>  b.age - a.age);
-    result.push(...filtered);    
+  filtered = usrs.filter(u => u.age >= 50).sort((a, b) => b.age - a.age);
+  result.push(...filtered);
 
-    filtered = usrs.filter( u => u.age >= 18 && u.age < 35).sort( (a, b) =>  b.age - a.age);
-    result.push(...filtered);
+  filtered = usrs.filter(u => u.age >= 18 && u.age < 35).sort((a, b) => b.age - a.age);
+  result.push(...filtered);
 
-    return result;
+  return result;
 }
