@@ -14,7 +14,6 @@ departmentId - a string representing the ID of a department
 The function should return the name of the employee with the highest salary in the specified department.
  If no employee exists in that department return undefined.
 */
-
 function getHighestPaidEmployee(employees, departmentId) {
   return employees.filter(
     (element) => (
@@ -27,8 +26,7 @@ function getHighestPaidEmployee(employees, departmentId) {
       )
     )
   ).reduce((acc, item) => (item.name), {})
-}
-
+} // risotto indigeribile; vedi mia soluzione - per di più la tua funzione non passa i test di 100jsfunctions.com
 
 /*
 https://www.100jsfunctions.com/exercises/flipObject
@@ -36,7 +34,6 @@ https://www.100jsfunctions.com/exercises/flipObject
   29.flipObject. Write a function named flipObject that receives an Object describing people
    and their jobs and returns a new object with the jobs as keys, and names as values.
 */
-
 function flipObject(people) {
   return Object.entries(people).reduce((acc, curr) => {
     const [key, value] = curr;
@@ -52,7 +49,7 @@ function flipObject(people) {
       }
     return acc;
   }, {})
-}
+} // excellent !!
 
 /*
 https://www.100jsfunctions.com/exercises/diffArrays
@@ -62,8 +59,6 @@ Write a function named diffArrays that receives 2 Arrays of numbers as parameter
 The function should return a new Array, that contains all numbers from the first array 
 that are not in the second one, and all numbers from the second array that are not in the first one.
 */
-
-
 function diffArrays(numbers1, numbers2) {
   return (numbers1.reduce((acc, current) => {
     acc = !numbers2.includes(current)
@@ -71,7 +66,6 @@ function diffArrays(numbers1, numbers2) {
       : [...acc];
     return acc;
   }, [])
-
     .concat(numbers2.reduce((acc, current) => {
       acc = !numbers1.includes(current)
         ? [...acc, current]
@@ -79,8 +73,7 @@ function diffArrays(numbers1, numbers2) {
       return acc;
     }, []))
   )
-}
-
+} // good
 
 /*
 https://www.100jsfunctions.com/exercises/countPageViews
@@ -100,12 +93,10 @@ country - a string representing a country code
 interval - an object with 2 properties, startDate and endDate - each of them Dates
 
 The function should return the number of page views from that country between those 2 dates (inclusive).
-
 */
-
 function countPageViews(pageViews, country, interval) {
   return pageViews.filter(
-    (e) => {
+    e => { // quando c'è solo un parametro in una arrow function, NON si mettono le tonde
       var startDate = new Date(interval.startDate);
       var endDate = new Date(interval.endDate);
       var currDate = new Date(e.date);
@@ -116,8 +107,7 @@ function countPageViews(pageViews, country, interval) {
     acc = current.country == country ? acc + current.count : acc;
     return acc;
   }, 0)
-}
-
+} // good
 
 /*
 https://www.100jsfunctions.com/exercises/linkedNumbersSum
@@ -130,11 +120,11 @@ value - representing a number
 next - representing the next node in the linked list (or null if there is no next node)
 The function should return the sum of all the numbers in the linked list.
 */
-
-
 function linkedNumbersSum(node) {
-  return (node.next == null) ? node.value : node.value + linkedNumbersSum(node.next);
-}
+  return (node.next == null)
+    ? node.value
+    : node.value + linkedNumbersSum(node.next);
+} // good
 
 /* 
 https://www.100jsfunctions.com/exercises/getMissingContacts
@@ -145,7 +135,6 @@ Write a function named getMissingContacts that receives one parameter:
 a Map of contacts, where the key is a string representing a userId and the value is an array of user ids - contactsMap
 The function should return a new Map, where the values are the contacts missing from each user.
 */
-
 function getMissingContacts(contactsMap) {
   var keys = [];
 
@@ -160,7 +149,11 @@ function getMissingContacts(contactsMap) {
 
   for ([key, values] of contactsMap) {
     newContacts = keys.reduce((acc, current) => {
-      acc = (current == key) ? [...acc] : (!values.includes(current) ? [...acc, current] : [...acc]);
+      acc = (current == key)
+        ? [...acc]
+        : (!values.includes(current)
+          ? [...acc, current]
+          : [...acc]);
       return acc;
     }, [])
     newMap.set(key, newContacts);
@@ -180,18 +173,11 @@ another string named target
 
 and returns a new string created by removing from source the first and last appearances of target.
 */
-
 function removeFirstAndLast(source, target) {
-  console.log('source: ' + source);
-  console.log('target: ' + target);
 
   var filter = new RegExp(`${target}(.+)`);
   var [firstSub, restFirst] = source.split(filter);
 
-  console.log('firstSub: ' + firstSub);
-  console.log('restFirst: ' + restFirst);
-
-  //if(restFirst === undefined) return source;
   if (restFirst == undefined) {
     filter = new RegExp(`${target}`);
     [firstSub, restFirst] = source.split(filter);
@@ -202,13 +188,8 @@ function removeFirstAndLast(source, target) {
   filter = new RegExp(`${target}(?!.*${target})`)
   var [middleSub, lastSub] = restFirst.split(filter);
 
-  console.log('middleSub: ' + middleSub);
-  console.log('lastSub: ' + lastSub);
-
-  console.log('result: ' + firstSub + middleSub + lastSub);
   return firstSub + middleSub + lastSub;
 }
-
 
 /*
 https://www.100jsfunctions.com/exercises/biggestPowerOf2
@@ -219,7 +200,6 @@ Write a new function named biggestPowerOf2 that receives a number as a parameter
 
 If no positive power of 2 is less than or equal to the number, the function should return -1.
 */
-
 function biggestPowerOf2(number) {
 
   let tmp = 1;
@@ -231,7 +211,7 @@ function biggestPowerOf2(number) {
   }
 
   return --count;
-}
+} // while should be avoided, ma in questo caso mi sembra la strada migliore... :-)
 
 /*
 https://www.100jsfunctions.com/exercises/areValuesUnique
@@ -241,12 +221,11 @@ Write a function named areValuesUnique that receives an Array of numbers as para
 
 The function should return a boolean verifying if the array contains only unique numbers.
 */
-
 function areValuesUnique(numbers) {
   const newSet = new Set(numbers);
 
   return numbers.length === newSet.size;
-}
+} // molto elegante
 
 /*
 https://www.100jsfunctions.com/exercises/rotateArray
@@ -261,7 +240,6 @@ The function should return a new array with the items rotated towards the right,
 NOTE: a rotation towards the right means that all elements of the array are moved to the next index,
  except for the last element which is moved to index=0.
 */
-
 function rotateArray(items, n) {
   if (items.length == 0) return items;
 
@@ -271,7 +249,7 @@ function rotateArray(items, n) {
   }
 
   return items;
-}
+} // inguardabile, ma molto smart :-) NB: a parte in casi astrusi come questo, pop e unshift sono PROIBITI
 
 /*
 https://www.100jsfunctions.com/exercises/getDaysInMonth
@@ -280,14 +258,12 @@ https://www.100jsfunctions.com/exercises/getDaysInMonth
 Write a function named getDaysInMonth that receives a Date as a parameter,
  and returns the number of days in the month of the given date.
 */
-
 function getDaysInMonth(date) {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
 
   return new Date(year, month, 0).getDate();
 }
-
 
 /*
 https://www.100jsfunctions.com/exercises/formatDateTime
@@ -315,7 +291,6 @@ function formatDateTime(date, locale) {
 
   return new Intl.DateTimeFormat(locale, options).format(date)
 }
-
 
 /*
 https://www.100jsfunctions.com/exercises/toDecimal
@@ -354,8 +329,7 @@ function compareSets(setA, setB) {
   Object.assign(obj, { union: setA.union(setB) });
 
   return obj;
-
-}
+} // elegante
 
 /*
 https://www.100jsfunctions.com/exercises/groupBirthdays
@@ -374,13 +348,12 @@ index of the month if groupBy='month' (starting from 1)
 index of the day in a month if groupBy='day' (starting from 1)
 year if the grouping string is groupBy='year'
 */
-
-
 function groupBirthdays(users, groupBy) {
   var map = new Map();
 
-  users.map((element) => {
-    const [record] = Object.entries(element).filter(item => item.includes('birthday'));
+  users.map(element => { // quando una arrow function ha solo un parametro, non ci vogliono le tonde
+    const [record] = Object.entries(element)
+      .filter(item => item.includes('birthday'));
     const [key1, value] = record;
 
     let date = new Date(value);
@@ -404,7 +377,7 @@ function groupBirthdays(users, groupBy) {
   })
 
   return map;
-}
+} // else e soprattutto elseif sono proibiti - vedi mia soluzione
 
 /*
 https://www.100jsfunctions.com/exercises/diffReactions
