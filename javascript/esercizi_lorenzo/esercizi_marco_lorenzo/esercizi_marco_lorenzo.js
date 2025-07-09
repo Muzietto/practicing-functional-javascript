@@ -1,3 +1,7 @@
+export {
+  oneToFive,
+  oneToFiveUsingThunks,
+};
 
 /**
  * This function returns five different values at each invocation
@@ -13,7 +17,13 @@
  * You are free to implement it in any way you like.
  * Obviously it must come with unit tests
  */
-function oneToFive() {}
+function oneToFive() {
+    if(typeof oneToFive.counter == 'undefined') oneToFive.counter = 0;
+
+    if(oneToFive.counter < 5) oneToFive.counter++;
+
+    return oneToFive.counter;
+}
 
 /**
  * This function does the same as the previous one
@@ -23,4 +33,11 @@ function oneToFive() {}
  * 2) a function to be invoked to obtain the next value
  * Obviously it must come with unit tests
  */
-function oneToFiveUsingThunks() {}
+function oneToFiveUsingThunks() {
+    let counter = 0;
+
+    return function thunk() {
+        if (counter < 5) counter++;
+        return counter;
+    };
+}
